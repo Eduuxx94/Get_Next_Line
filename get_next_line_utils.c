@@ -1,81 +1,84 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ede-alme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/04 18:03:15 by ede-alme          #+#    #+#             */
-/*   Updated: 2022/02/14 18:35:10 by ede-alme         ###   ########.fr       */
+/*   Created: 2022/08/24 16:22:24 by ede-alme          #+#    #+#             */
+/*   Updated: 2022/08/24 16:23:06 by ede-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_realoc2(char *line, char *buff, int i_line, int *buff_size)
-{
-	int	i_buff;
-	int	i_sobra;
-
-	i_sobra = -1;
-	i_buff = 0;
-	while (line && buff[i_buff])
-	{
-		if (i_sobra == -1)
-		{
-			line[i_line++] = buff[i_buff];
-			if (buff[i_buff] == '\n')
-				i_sobra++;
-		}
-		else
-			buff[i_sobra++] = buff[i_buff];
-		buff[i_buff++] = 0;
-	}
-	if (i_sobra != -1)
-		*buff_size = 0;
-}
-
-void	*ft_realoc(char *line, char *buff, int line_size, int *buff_size)
-{
-	char	*temp;
-	int		i_line;
-
-	i_line = 0;
-	temp = line;
-	line = malloc(sizeof(char) * line_size + 1);
-	if (line == 0)
-		return (0);
-	line[line_size] = 0;
-	while (temp && temp[i_line])
-	{
-		line[i_line] = temp[i_line];
-		i_line++;
-	}
-	if (temp)
-		free(temp);
-	ft_realoc2(line, buff, i_line, buff_size);
-	return (line);
-}
-
-int	get_size(char *buff)
-{
-	if (!*buff)
-		return (0);
-	return (1 + get_size(buff + 1));
-}
-
-int	get_size_linha(char *buff)
+int	ft_is_line(char *line)
 {
 	int	i;
 
 	i = 0;
-	while (buff[i])
-	{			
-		if (buff[i] == '\n')
-		{
-			return (i + 1);
-		}
+	while (line && line[i])
+	{
+		if (line[i] == '\n')
+			return (1);
 		i++;
 	}
+	return (0);
+}
+
+void	ft_move_buffer(char *buffer)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < BUFFER_SIZE && buffer[i] == '\0')
+		i++;
+	while (i < BUFFER_SIZE)
+	{
+		buffer[j] = buffer[i];
+		buffer[i] = '\0';
+		j++;
+		i++;
+	}
+}
+
+int	ft_lenline(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i] && str[i] != '\n')
+		i++;
+	if (str && str[i] == '\n')
+		i++;
 	return (i);
+}
+
+char	*ft_get_buff(char *line, char *buffer)
+{
+	int		i_line;
+	int		i_buffer;
+	char	*temp;
+
+	i_line = 0;
+	i_buffer = 0;
+	temp = line;
+	line = malloc(sizeof(char) * (ft_lenline(temp) + ft_lenline(buffer)) + 1);
+	line[ft_lenline(temp) + ft_lenline(buffer)] = 0;
+	while (temp && temp[i_line] && ++i_line)
+		line[i_line - 1] = temp[i_line - 1];
+	if (temp)
+		free(temp);
+	while (buffer && buffer[i_buffer] && i_buffer < BUFFER_SIZE)
+	{
+		line[i_line + i_buffer] = buffer[i_buffer];
+		buffer[i_buffer] = '\0';
+		if (line[i_line + i_buffer] == '\n')
+			break ;
+		i_buffer++;
+	}
+	ft_move_buffer(buffer);
+	return (line);
 }

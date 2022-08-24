@@ -5,79 +5,63 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ede-alme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/25 18:08:00 by ede-alme          #+#    #+#             */
-/*   Updated: 2022/02/14 18:17:48 by ede-alme         ###   ########.fr       */
+/*   Created: 2022/08/24 13:40:12 by ede-alme          #+#    #+#             */
+/*   Updated: 2022/08/24 16:29:06 by ede-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
+
+#include <unistd.h>
+#include <stdlib.h>
 #include <fcntl.h>
+#include <stdio.h>
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 1000
+#endif
 
 char	*get_next_line(int fd)
 {
-	static char	buff[BUFFER_SIZE];
-	int			buff_size;
 	char		*line;
-	int			line_size;
+	static char	buffer[BUFFER_SIZE + 1];
 
-	line_size = 0;
 	line = NULL;
-	buff_size = 0;
 	while (1)
 	{
-		if (!buff[0])
-			buff_size = read(fd, buff, BUFFER_SIZE);
-		else
-			buff_size = 1;
-		line_size += get_size_linha(buff);
-		if (buff_size > 0)
-			line = ft_realoc(line, buff, line_size, &buff_size);
-		if (buff_size <= 0)
+		if (!buffer[0] && read(fd, buffer, BUFFER_SIZE) <= 0)
 			return (line);
+		line = ft_get_buff(line, buffer);
+		if (ft_is_line(line))
+			break ;
 	}
 	return (line);
 }
 
 int	main(void)
 {
-	int	fd1;
-	int	fd2;
+	int		fd;
+	char	*line;
 
-	fd1 = open("file1", O_RDONLY);
-	fd2 = open("file2", O_RDONLY);
-	printf("%s", get_next_line(fd1));
-	printf("%s", get_next_line(fd2));
-	printf("%s", get_next_line(fd1));
-	printf("%s", get_next_line(fd1));
-	printf("%s", get_next_line(fd2));
-	printf("%s", get_next_line(fd1));
-	printf("%s", get_next_line(fd1));
-	printf("%s", get_next_line(fd1));
-	close(fd1);
-	close(fd2);
+	fd = open("file.txt", O_RDONLY);
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
+	close(fd);
 	return (0);
 }
-
-/*
-	0; verificar parametros
-	1:  //check buffer 
-	{
-		.1: New line in buffer
-			get_line_from_buffr();
-			return;
-			
-		.2 No line in buffer
-			line = strdup(buffer);
-			buffer = 0;
-	}
-	read_buffer = malloc(BUFFER_SIZE)
-	while ()
-	{
-		read(fd, read_buffer, BUFFFR_SIZE):
-		1. New line in	read_buffer
-			get_line() buffer_return()
-		2. No new line in read_buffer
-			line += read_buffer;		
-	}
-*/

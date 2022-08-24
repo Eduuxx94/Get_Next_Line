@@ -5,27 +5,30 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ede-alme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/08 17:50:29 by ede-alme          #+#    #+#             */
-/*   Updated: 2022/02/14 18:28:29 by ede-alme         ###   ########.fr       */
+/*   Created: 2022/08/24 16:23:31 by ede-alme          #+#    #+#             */
+/*   Updated: 2022/08/24 16:45:17 by ede-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
+#  define BUFFER_SIZE 1000
 # endif
 
-//This is main function
+# include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <stdio.h>
+
+//Main Function
 char	*get_next_line(int fd);
 
-//This is all utils functions
-void	ft_realoc2(char *line, char *buff, int i_line, int *buff_size);
-void	*ft_realoc(char *line, char *buff, int line_size, int *buff_size);
-int		get_size(char *buff);
-int		get_size_linha(char *buff);
+//Utils Functions
+char	*ft_get_buff(char *line, char *buffer);
+int		ft_lenline(char *str);
+void	ft_move_buffer(char *buffer);
+int		ft_is_line(char *line);
 
 #endif
