@@ -6,7 +6,7 @@
 /*   By: ede-alme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 13:40:12 by ede-alme          #+#    #+#             */
-/*   Updated: 2022/08/24 16:29:06 by ede-alme         ###   ########.fr       */
+/*   Updated: 2022/08/25 10:57:25 by ede-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,6 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <stdio.h>
-
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1000
-#endif
 
 char	*get_next_line(int fd)
 {
