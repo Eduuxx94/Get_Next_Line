@@ -6,7 +6,7 @@
 /*   By: ede-alme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 13:40:12 by ede-alme          #+#    #+#             */
-/*   Updated: 2022/08/25 11:06:55 by ede-alme         ###   ########.fr       */
+/*   Updated: 2022/08/25 16:25:39 by ede-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*get_next_line(int fd)
 	}
 	return (line);
 }
-
+/*
 int	main(void)
 {
 	int		fd;
@@ -65,3 +65,4 @@ int	main(void)
 	close(fd);
 	return (0);
 }
+*/

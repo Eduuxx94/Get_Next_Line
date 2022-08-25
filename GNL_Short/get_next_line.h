@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ede-alme <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 16:23:31 by ede-alme          #+#    #+#             */
-/*   Updated: 2022/08/25 11:19:02 by ede-alme         ###   ########.fr       */
+/*   Updated: 2022/08/25 16:23:03 by ede-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 2
+#  define BUFFER_SIZE 1
 # endif
 
-# include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include <stdio.h>
+# include <stdio.h> //for printf main tester
+# include <unistd.h> //for open and close functions main terster
 
 typedef struct s_vars {
 	int		i;
