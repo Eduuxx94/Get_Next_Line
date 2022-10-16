@@ -13,6 +13,7 @@ char  *line;
 char  *get_next_line(int fd)
 
 start loop:
+
 	-> !Buffer[0] || Read fd in buffer;
 		-> Return (out);
 
