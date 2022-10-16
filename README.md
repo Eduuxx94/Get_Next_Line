@@ -10,8 +10,6 @@ char  *line;
     ->  line =	get_next_line(file):
 
 
-char  *get_next_line(int fd)
-
 start loop:
 
 	-> !Buffer[0] || Read fd in buffer;
@@ -19,7 +17,7 @@ start loop:
 
 	-> out = get line of buffer;
 		temp = malloc(lenline(line) + lenline(buffer));
-		temp = strcpy line + buffer(line);
+		temp = line + buffer(line);
 		-> return (temp);
 
 	-> out == line?
